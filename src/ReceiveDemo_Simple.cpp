@@ -19,8 +19,12 @@ char *remote_array[2];
 void loop() {
   if (rcSwitch.available()) {
     
+    int buttonValue = int( rcSwitch.getReceivedValue() & 0xff );
+
     Serial.print("Received ");
     Serial.printf( "%#lx",rcSwitch.getReceivedValue() );
+    Serial.print(" Button Value ");
+    Serial.print( buttonValue);
     Serial.print(" / ");
     Serial.print( rcSwitch.getReceivedBitlength() );
     Serial.print("bit ");
@@ -28,5 +32,20 @@ void loop() {
     Serial.println( rcSwitch.getReceivedProtocol() );
 
     rcSwitch.resetAvailable();
+
+    switch (buttonValue)
+    {
+    case 10:
+      Serial.print("red");
+      break;
+      case 11:
+      Serial.print("green");
+    break;
+    case 12:
+    Serial.print("blue");
+    break;
+    default:
+      break;
+    }
   }
 }
